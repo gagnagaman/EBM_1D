@@ -13,6 +13,22 @@ EBM_1D/
 ├── figures/
 │   ├── ebm_assignment1_results.png    # 4-panel comparison: baseline, D sensitivity, albedo(x), Lindzen-Farrell
 │   └── ebm_sici_bifurcation.png       # SICI hysteresis loop: global mean T vs. S_0
+├── Matlab_code/                       # MATLAB / GNU Octave implementation
+│   ├── ebm.m                          # Baseline 1-D EBM solver
+│   ├── ebmAlbedo.m                    # Temperature-dependent albedo solver
+│   ├── IterTalb.m                     # Equilibrium relaxation iterator
+│   ├── SICI.m                         # SICI hysteresis experiment driver
+│   └── README.md                      # MATLAB documentation and usage guide
+├── R_code/                            # R implementation
+│   ├── ebm.R                          # Baseline 1-D EBM solver
+│   ├── analyT.R                       # Exact analytical Legendre polynomial solution
+│   ├── ebmAlbedo.R                    # Temperature-dependent albedo solver
+│   ├── iterate_ebmAlbedo.R            # Equilibrium relaxation iterator
+│   ├── SICI.R                         # SICI hysteresis experiment driver
+│   ├── readncep.R                     # Symmetrized NCEP data loader
+│   ├── test_ebm_ncep.R                # Assignment 1 test script
+│   ├── ncep_temp.txt                  # Local observational NCEP dataset
+│   └── README.md                      # R documentation and usage guide
 ├── ncep_temp.txt                      # Monthly longterm mean air temperature (NCEP Reanalysis)
 ├── EBM_1D_Analysis.ipynb              # Interactive Jupyter Notebook mirroring all derivations and experiments
 ├── ebm_model.py                       # Core model module and exact analytical Legendre solver
@@ -31,6 +47,8 @@ EBM_1D/
 | **`ebm_model.py`** | **Core model module.** Implements the `EnergyBalanceModel` class: staggered grid in $x=\sin\theta$, finite-volume discretization of diffusive transport $Q_T = \frac{d}{dx}[(1-x^2)D\frac{dT}{dx}]$, linearized $Q_{lw}=A+BT$, Legendre-approximated insolation $Q_{sw}$, matrix assembly $(\mathbf{K}\mathbf{T} = \mathbf{A} - \mathbf{Q}_{sw})$, and the exact 2-term analytical Legendre solution $T(x) = T_0 + T_2 P_2(x)$. |
 | **`run_ebm.py`** | **Model runner and Assignment 1 experiments.** Runs the model against symmetric NCEP reanalysis observations (`ncep_temp.txt`), verifies numerical accuracy against the analytical solution, conducts sensitivity tests across diffusivity $D$, tests the Fanning & Weaver latitude-dependent albedo $\alpha(x) = (0.315 + 0.3615x^2)/f$, and evaluates the Lindzen & Farrell (1977) Hadley-cell enhanced diffusivity $D(x)$. Saves plots to `figures/ebm_assignment1_results.png`. |
 | **`ncep_temp.txt`** | **Observational data.** Monthly long-term mean air temperatures from the NCEP Reanalysis used for model validation. |
+| **`Matlab_code/`** | **MATLAB / GNU Octave code.** Standalone implementations (`ebm.m`, `ebmAlbedo.m`, `IterTalb.m`, `SICI.m`) with their own `README.md`. |
+| **`R_code/`** | **R code.** Standalone implementations (`ebm.R`, `analyT.R`, `ebmAlbedo.R`, `iterate_ebmAlbedo.R`, `SICI.R`, `test_ebm_ncep.R`, and local `ncep_temp.txt`) with their own `README.md`. |
 | **`ebm_sici.py`** | **Small Ice Cap Instability (SICI) and hysteresis experiment.** Implements temperature-dependent albedo feedback ($\alpha = 0.60$ for $T < -10^\circ\mathrm{C}$, else $0.33$), relaxation iterations to equilibrium, and sweeps $S_0$ through warm, cooling (snowball collapse), and warming (deglaciation) branches. Calculates the deglaciation radiative forcing $\Delta Q_{lw}$ and required $\mathrm{CO}_2$ multiplier $K$. Saves plots to `figures/ebm_sici_bifurcation.png`. |
 | **`Docs/EBM_eng3.pdf`** | **Theoretical reference document.** Complete course notes describing the 1-D EBM derivation, Legendre polynomial analytical solution, cell-averaged finite-volume scheme, Small Ice Cap Instability, and student assignments. |
 
